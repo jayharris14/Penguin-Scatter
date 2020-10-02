@@ -11,7 +11,7 @@ return finals
 return quizess}
 var successFCN=function(penguin)
 {console.log("Data Collection", penguin)
- intialgraph(penguin)
+ intialgraph2(penguin)
  click(penguin)
  
 
@@ -29,6 +29,7 @@ var drawPlot=function(penguin,screen,xScale,yscale )
     var finalgrade= function(penguin){
   return penguin.final[0].grade
 }
+    console.log(penguin)
 var finals=penguin.map(finalgrade)
 
 var hwgrade=function(penguin)
@@ -86,6 +87,23 @@ var yscale=d3.scaleLinear()
 drawPlot(penguin,screen,xScale,yscale)
 }
 
+var intialgraph2=function(penguin)
+{ var screen= {width:600, height:600}
+d3.select("#graph")
+.attr("width", screen.width)
+.attr("height", screen.height)
+
+var xScale=d3.scaleLinear()
+.domain([0,100])
+.range([0,screen.width])
+
+var yscale=d3.scaleLinear()
+.domain([0,100])
+.range([screen.height,0])
+
+drawPlot2(penguin,screen,xScale,yscale)
+}
+
 
 var drawPlot2=function(penguin,screen,xScale,yscale )
 { 
@@ -134,6 +152,13 @@ console.log("finals", finals)
 
 var click=function(penguin){
 d3.select("#FHW")
-    .on("click", drawPlot2)
+    .on("click", function(){
+    d3.selectAll("#graph circle")
+    .remove()
+    intialgraph(penguin)
+})
 d3.select("#HWF")
-    .on("click", drawPlot)}
+    .on("click", function(){
+    d3.selectAll("#graph circle")
+    .remove()
+    intialgraph2(penguin)})}
